@@ -3,7 +3,7 @@ const CANVAS_W = 820;
 const MARGIN_LEFT = 70;
 const MARGIN_RIGHT = 30;
 
-const SALES_TOP = 40;
+const SALES_TOP = 50;
 const SALES_H = 240;
 const GAP = 26;
 const VISITS_H = 90;
@@ -43,6 +43,7 @@ function setup() {
   textFont("Helvetica");
 
   buildMonthScale();
+  buildOverviewTable();
 
   customerSelect = createSelect();
   customerSelect.parent(document.getElementById("controls"));
@@ -147,6 +148,81 @@ function buildMonthScale() {
 
 function monthIndex(monthStr) {
   return allMonths.indexOf(monthStr);
+}
+
+// Aastane trend: viimased 12 kuud vs eelnevad 12 kuud (vajab vähemalt 24 kuud andmeid)
+function computeYoYTrend(customer) {
+  const sales = customer.monthlySales;
+  if (sales.length < 24) return null;
+  const last12 = sales.slice(-12);
+  const prev12 = sales.slice(-24, -12);
+  const sum = (arr) => arr.reduce((a, b) => a + b.revenue, 0);
+  const avgPrev = sum(prev12) / 12;
+  const avgLast = sum(last12) / 12;
+  if (avgPrev <= 0) return null;
+  return ((avgLast - avgPrev) / avgPrev) * 100;
+}
+
+function computeVisitsPerYear(customer) {
+  const sales = customer.monthlySales;
+  if (sales.length === 0) return 0;
+  const totalVisits = customer.visits.reduce((a, v) => a + v.count, 0);
+  return totalVisits / (sales.length / 12);
+}
+
+function trendCell(pct) {
+  if (pct === null) return '<span class="trend-flat">vähe andmeid</span>';
+  const str = (pct >= 0 ? "+" : "") + pct.toFixed(0) + "%";
+  if (pct >= 8) return `<span class="trend-up">↑ ${str}</span>`;
+  if (pct <= -8) return `<span class="trend-down">↓ ${str}</span>`;
+  return `<span class="trend-flat">→ ${str}</span>`;
+}
+
+function verdictCell(customer) {
+  const effect = computeVisitEffect(customer);
+  if (!effect) return '<span class="trend-flat">vähe andmeid</span>';
+  const pct = effect.avgPct;
+  if (pct >= 10) return '<span class="trend-up">↑ kasvas külastuste järel</span>';
+  if (pct <= -10) return '<span class="trend-down">↓ langes külastuste järel</span>';
+  return '<span class="trend-flat">selget seost pole</span>';
+}
+
+function buildOverviewTable() {
+  const table = document.getElementById("overview");
+  let html = `<tr>
+    <th>Klient</th>
+    <th class="num">Külastusi kokku</th>
+    <th class="num">Külastusi/aasta</th>
+    <th>Aastane müügitrend</th>
+    <th>Külastusjärgne muster</th>
+  </tr>`;
+
+  data.customers.forEach((c) => {
+    const totalVisits = c.visits.reduce((a, v) => a + v.count, 0);
+    const perYear = computeVisitsPerYear(c).toFixed(1);
+    const yoy = trendCell(computeYoYTrend(c));
+    const verdict = verdictCell(c);
+    const label = c.synthetic ? c.name + " ⚠" : c.name;
+    html += `<tr>
+      <td>${label}</td>
+      <td class="num">${totalVisits}</td>
+      <td class="num">${perYear}</td>
+      <td>${yoy}</td>
+      <td>${verdict}</td>
+    </tr>`;
+  });
+
+  table.innerHTML = html;
+}
+
+// Liigutav (libisev) keskmine, kuni 3 viimase kuu põhjal, et müügi trend paremini paistaks
+function computeMovingAverage(monthlySales, windowSize = 3) {
+  return monthlySales.map((m, idx, arr) => {
+    const start = Math.max(0, idx - windowSize + 1);
+    const slice = arr.slice(start, idx + 1);
+    const avg = slice.reduce((a, b) => a + b.revenue, 0) / slice.length;
+    return { month: m.month, avg };
+  });
 }
 
 // Liidab ühe kliendi külastused kuude kaupa kokku: { "2025-05": 2, "2025-08": 3, ... }
@@ -278,6 +354,37 @@ function drawSalesGrid(maxRev, yForRev, n) {
 }
 
 function drawSalesLine(yForRev, n) {
+  const baselineY = SALES_TOP + SALES_H;
+
+  // õrn täidis müügijoone all
+  noStroke();
+  fill(74, 74, 74, 22);
+  beginShape();
+  current.monthlySales.forEach((m) => {
+    const i = monthIndex(m.month);
+    vertex(xForIndex(i, n), yForRev(m.revenue));
+  });
+  const lastM = current.monthlySales[current.monthlySales.length - 1];
+  const firstM = current.monthlySales[0];
+  vertex(xForIndex(monthIndex(lastM.month), n), baselineY);
+  vertex(xForIndex(monthIndex(firstM.month), n), baselineY);
+  endShape(CLOSE);
+
+  // 3 kuu libisev keskmine - siledam, õrnem joon trendi näitamiseks
+  const ma = computeMovingAverage(current.monthlySales, 3);
+  noFill();
+  stroke(74, 74, 74, 110);
+  strokeWeight(2);
+  drawingContext.setLineDash([5, 4]);
+  beginShape();
+  ma.forEach((m) => {
+    const i = monthIndex(m.month);
+    vertex(xForIndex(i, n), yForRev(m.avg));
+  });
+  endShape();
+  drawingContext.setLineDash([]);
+
+  // tegelik kuine müük - täisjoon + punktid
   noFill();
   stroke(COLOR_LINE);
   strokeWeight(2.5);
@@ -357,6 +464,8 @@ function drawTitleAndLegend() {
   fill(COLOR_LINE);
   textAlign(LEFT, TOP);
   text("● Müük (kuine käive)", CANVAS_W - 250, 8);
+  fill(150);
+  text("- - 3 kuu libisev keskmine", CANVAS_W - 250, 22);
   fill(COLOR_SUBTEXT);
-  text("● Külastused sel kuul (arv ringis)", CANVAS_W - 250, 22);
+  text("● Külastused sel kuul (arv ringis)", CANVAS_W - 250, 36);
 }
