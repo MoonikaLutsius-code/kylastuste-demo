@@ -1,0 +1,962 @@
+{
+  "customers": [
+    {
+      "id": "C001",
+      "name": "Kadaka Toidupood",
+      "visits": [
+        {
+          "date": "2025-05-01",
+          "count": 1
+        },
+        {
+          "date": "2025-07-01",
+          "count": 1
+        },
+        {
+          "date": "2025-08-01",
+          "count": 2
+        },
+        {
+          "date": "2025-10-01",
+          "count": 2
+        },
+        {
+          "date": "2025-12-01",
+          "count": 2
+        },
+        {
+          "date": "2026-01-23",
+          "count": 1
+        },
+        {
+          "date": "2026-03-20",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2024-01",
+          "revenue": 788
+        },
+        {
+          "month": "2024-02",
+          "revenue": 900
+        },
+        {
+          "month": "2024-03",
+          "revenue": 2735
+        },
+        {
+          "month": "2024-04",
+          "revenue": 2691
+        },
+        {
+          "month": "2024-05",
+          "revenue": 1330
+        },
+        {
+          "month": "2024-06",
+          "revenue": 955
+        },
+        {
+          "month": "2024-07",
+          "revenue": 1437
+        },
+        {
+          "month": "2024-08",
+          "revenue": 1353
+        },
+        {
+          "month": "2024-09",
+          "revenue": 1258
+        },
+        {
+          "month": "2024-10",
+          "revenue": 827
+        },
+        {
+          "month": "2024-11",
+          "revenue": 785
+        },
+        {
+          "month": "2024-12",
+          "revenue": 1279
+        },
+        {
+          "month": "2025-01",
+          "revenue": 234
+        },
+        {
+          "month": "2025-02",
+          "revenue": 1222
+        },
+        {
+          "month": "2025-03",
+          "revenue": 3422
+        },
+        {
+          "month": "2025-04",
+          "revenue": 2841
+        },
+        {
+          "month": "2025-05",
+          "revenue": 965
+        },
+        {
+          "month": "2025-06",
+          "revenue": 806
+        },
+        {
+          "month": "2025-07",
+          "revenue": 1270
+        },
+        {
+          "month": "2025-08",
+          "revenue": 1223
+        },
+        {
+          "month": "2025-09",
+          "revenue": 451
+        },
+        {
+          "month": "2025-10",
+          "revenue": 1606
+        },
+        {
+          "month": "2025-11",
+          "revenue": 770
+        },
+        {
+          "month": "2025-12",
+          "revenue": 672
+        },
+        {
+          "month": "2026-01",
+          "revenue": 890
+        },
+        {
+          "month": "2026-02",
+          "revenue": 712
+        },
+        {
+          "month": "2026-03",
+          "revenue": 3137
+        },
+        {
+          "month": "2026-04",
+          "revenue": 5316
+        },
+        {
+          "month": "2026-05",
+          "revenue": 2926
+        },
+        {
+          "month": "2026-06",
+          "revenue": 2837
+        },
+        {
+          "month": "2026-07",
+          "revenue": 2392
+        },
+        {
+          "month": "2026-08",
+          "revenue": 1461
+        },
+        {
+          "month": "2026-09",
+          "revenue": 1111
+        }
+      ]
+    },
+    {
+      "id": "C002",
+      "name": "Kuuse Kaubandus (NÄIDIS – tehisandmed)",
+      "visits": [
+        {
+          "date": "2024-02-01",
+          "count": 1
+        },
+        {
+          "date": "2024-06-01",
+          "count": 1
+        },
+        {
+          "date": "2024-10-01",
+          "count": 1
+        },
+        {
+          "date": "2025-02-01",
+          "count": 1
+        },
+        {
+          "date": "2025-06-01",
+          "count": 1
+        },
+        {
+          "date": "2025-10-01",
+          "count": 1
+        },
+        {
+          "date": "2026-02-01",
+          "count": 1
+        },
+        {
+          "date": "2026-06-01",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2024-01",
+          "revenue": 1825
+        },
+        {
+          "month": "2024-02",
+          "revenue": 2486
+        },
+        {
+          "month": "2024-03",
+          "revenue": 2147
+        },
+        {
+          "month": "2024-04",
+          "revenue": 1750
+        },
+        {
+          "month": "2024-05",
+          "revenue": 1843
+        },
+        {
+          "month": "2024-06",
+          "revenue": 2656
+        },
+        {
+          "month": "2024-07",
+          "revenue": 2282
+        },
+        {
+          "month": "2024-08",
+          "revenue": 1726
+        },
+        {
+          "month": "2024-09",
+          "revenue": 1786
+        },
+        {
+          "month": "2024-10",
+          "revenue": 2487
+        },
+        {
+          "month": "2024-11",
+          "revenue": 2134
+        },
+        {
+          "month": "2024-12",
+          "revenue": 1801
+        },
+        {
+          "month": "2025-01",
+          "revenue": 1715
+        },
+        {
+          "month": "2025-02",
+          "revenue": 2531
+        },
+        {
+          "month": "2025-03",
+          "revenue": 2229
+        },
+        {
+          "month": "2025-04",
+          "revenue": 1808
+        },
+        {
+          "month": "2025-05",
+          "revenue": 1750
+        },
+        {
+          "month": "2025-06",
+          "revenue": 2633
+        },
+        {
+          "month": "2025-07",
+          "revenue": 2264
+        },
+        {
+          "month": "2025-08",
+          "revenue": 1711
+        },
+        {
+          "month": "2025-09",
+          "revenue": 1855
+        },
+        {
+          "month": "2025-10",
+          "revenue": 2662
+        },
+        {
+          "month": "2025-11",
+          "revenue": 2161
+        },
+        {
+          "month": "2025-12",
+          "revenue": 1738
+        },
+        {
+          "month": "2026-01",
+          "revenue": 1882
+        },
+        {
+          "month": "2026-02",
+          "revenue": 2567
+        },
+        {
+          "month": "2026-03",
+          "revenue": 2107
+        },
+        {
+          "month": "2026-04",
+          "revenue": 1727
+        },
+        {
+          "month": "2026-05",
+          "revenue": 1863
+        },
+        {
+          "month": "2026-06",
+          "revenue": 2637
+        },
+        {
+          "month": "2026-07",
+          "revenue": 2263
+        },
+        {
+          "month": "2026-08",
+          "revenue": 1841
+        },
+        {
+          "month": "2026-09",
+          "revenue": 1807
+        }
+      ],
+      "synthetic": true,
+      "note": "Tehisandmed - lisatud demo jaoks, et illustreerida selget külastus/müügi mustrit. Ei ole reaalne äriandmestik."
+    },
+    {
+      "id": "C003",
+      "name": "Metsatuka OÜ",
+      "visits": [
+        {
+          "date": "2025-05-01",
+          "count": 2
+        },
+        {
+          "date": "2025-06-01",
+          "count": 1
+        },
+        {
+          "date": "2025-08-01",
+          "count": 1
+        },
+        {
+          "date": "2025-10-01",
+          "count": 3
+        },
+        {
+          "date": "2025-11-01",
+          "count": 1
+        },
+        {
+          "date": "2025-12-01",
+          "count": 1
+        },
+        {
+          "date": "2026-01-09",
+          "count": 1
+        },
+        {
+          "date": "2026-01-22",
+          "count": 1
+        },
+        {
+          "date": "2026-03-12",
+          "count": 1
+        },
+        {
+          "date": "2026-03-19",
+          "count": 1
+        },
+        {
+          "date": "2026-03-19",
+          "count": 1
+        },
+        {
+          "date": "2026-03-30",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2024-01",
+          "revenue": 3986
+        },
+        {
+          "month": "2024-02",
+          "revenue": 5733
+        },
+        {
+          "month": "2024-03",
+          "revenue": 7856
+        },
+        {
+          "month": "2024-04",
+          "revenue": 10030
+        },
+        {
+          "month": "2024-05",
+          "revenue": 7073
+        },
+        {
+          "month": "2024-06",
+          "revenue": 6924
+        },
+        {
+          "month": "2024-07",
+          "revenue": 7831
+        },
+        {
+          "month": "2024-08",
+          "revenue": 5313
+        },
+        {
+          "month": "2024-09",
+          "revenue": 5644
+        },
+        {
+          "month": "2024-10",
+          "revenue": 6814
+        },
+        {
+          "month": "2024-11",
+          "revenue": 6802
+        },
+        {
+          "month": "2024-12",
+          "revenue": 5394
+        },
+        {
+          "month": "2025-01",
+          "revenue": 4285
+        },
+        {
+          "month": "2025-02",
+          "revenue": 5657
+        },
+        {
+          "month": "2025-03",
+          "revenue": 9203
+        },
+        {
+          "month": "2025-04",
+          "revenue": 8890
+        },
+        {
+          "month": "2025-05",
+          "revenue": 7400
+        },
+        {
+          "month": "2025-06",
+          "revenue": 7454
+        },
+        {
+          "month": "2025-07",
+          "revenue": 7250
+        },
+        {
+          "month": "2025-08",
+          "revenue": 8411
+        },
+        {
+          "month": "2025-09",
+          "revenue": 5492
+        },
+        {
+          "month": "2025-10",
+          "revenue": 6614
+        },
+        {
+          "month": "2025-11",
+          "revenue": 5475
+        },
+        {
+          "month": "2025-12",
+          "revenue": 4866
+        },
+        {
+          "month": "2026-01",
+          "revenue": 4131
+        },
+        {
+          "month": "2026-02",
+          "revenue": 5072
+        },
+        {
+          "month": "2026-03",
+          "revenue": 9130
+        },
+        {
+          "month": "2026-04",
+          "revenue": 6780
+        },
+        {
+          "month": "2026-05",
+          "revenue": 5754
+        },
+        {
+          "month": "2026-06",
+          "revenue": 6247
+        },
+        {
+          "month": "2026-07",
+          "revenue": 6074
+        },
+        {
+          "month": "2026-08",
+          "revenue": 5176
+        },
+        {
+          "month": "2026-09",
+          "revenue": 1978
+        }
+      ]
+    },
+    {
+      "id": "C004",
+      "name": "Nõmme Tervisepood",
+      "visits": [
+        {
+          "date": "2026-01-08",
+          "count": 1
+        },
+        {
+          "date": "2026-01-14",
+          "count": 1
+        },
+        {
+          "date": "2026-01-16",
+          "count": 1
+        },
+        {
+          "date": "2026-01-19",
+          "count": 1
+        },
+        {
+          "date": "2026-01-23",
+          "count": 1
+        },
+        {
+          "date": "2026-01-28",
+          "count": 1
+        },
+        {
+          "date": "2026-02-03",
+          "count": 1
+        },
+        {
+          "date": "2026-02-11",
+          "count": 1
+        },
+        {
+          "date": "2026-03-02",
+          "count": 1
+        },
+        {
+          "date": "2026-03-09",
+          "count": 1
+        },
+        {
+          "date": "2026-03-10",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2026-01",
+          "revenue": 3057
+        },
+        {
+          "month": "2026-02",
+          "revenue": 2186
+        },
+        {
+          "month": "2026-03",
+          "revenue": 2856
+        },
+        {
+          "month": "2026-04",
+          "revenue": 1262
+        },
+        {
+          "month": "2026-05",
+          "revenue": 2485
+        },
+        {
+          "month": "2026-06",
+          "revenue": 1606
+        },
+        {
+          "month": "2026-07",
+          "revenue": 1561
+        },
+        {
+          "month": "2026-08",
+          "revenue": 1287
+        },
+        {
+          "month": "2026-09",
+          "revenue": 739
+        }
+      ]
+    },
+    {
+      "id": "C005",
+      "name": "Rannamõisa Apteek",
+      "visits": [
+        {
+          "date": "2025-10-01",
+          "count": 2
+        },
+        {
+          "date": "2025-12-01",
+          "count": 1
+        },
+        {
+          "date": "2026-01-28",
+          "count": 1
+        },
+        {
+          "date": "2026-02-05",
+          "count": 1
+        },
+        {
+          "date": "2026-02-26",
+          "count": 1
+        },
+        {
+          "date": "2026-03-03",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2024-01",
+          "revenue": 2814
+        },
+        {
+          "month": "2024-02",
+          "revenue": 2654
+        },
+        {
+          "month": "2024-03",
+          "revenue": 3532
+        },
+        {
+          "month": "2024-04",
+          "revenue": 2385
+        },
+        {
+          "month": "2024-05",
+          "revenue": 2319
+        },
+        {
+          "month": "2024-06",
+          "revenue": 2064
+        },
+        {
+          "month": "2024-07",
+          "revenue": 9486
+        },
+        {
+          "month": "2024-08",
+          "revenue": 1736
+        },
+        {
+          "month": "2024-09",
+          "revenue": 3327
+        },
+        {
+          "month": "2024-10",
+          "revenue": 3124
+        },
+        {
+          "month": "2024-11",
+          "revenue": 5016
+        },
+        {
+          "month": "2024-12",
+          "revenue": 2377
+        },
+        {
+          "month": "2025-01",
+          "revenue": 4141
+        },
+        {
+          "month": "2025-02",
+          "revenue": 2465
+        },
+        {
+          "month": "2025-03",
+          "revenue": 2819
+        },
+        {
+          "month": "2025-04",
+          "revenue": 5026
+        },
+        {
+          "month": "2025-05",
+          "revenue": 4094
+        },
+        {
+          "month": "2025-06",
+          "revenue": 3033
+        },
+        {
+          "month": "2025-07",
+          "revenue": 5161
+        },
+        {
+          "month": "2025-08",
+          "revenue": 2802
+        },
+        {
+          "month": "2025-09",
+          "revenue": 5209
+        },
+        {
+          "month": "2025-10",
+          "revenue": 2238
+        },
+        {
+          "month": "2025-11",
+          "revenue": 2254
+        },
+        {
+          "month": "2025-12",
+          "revenue": 2708
+        },
+        {
+          "month": "2026-01",
+          "revenue": 3153
+        },
+        {
+          "month": "2026-02",
+          "revenue": 1582
+        },
+        {
+          "month": "2026-03",
+          "revenue": 4504
+        },
+        {
+          "month": "2026-04",
+          "revenue": 3401
+        },
+        {
+          "month": "2026-05",
+          "revenue": 3832
+        },
+        {
+          "month": "2026-06",
+          "revenue": 5303
+        },
+        {
+          "month": "2026-07",
+          "revenue": 3962
+        },
+        {
+          "month": "2026-08",
+          "revenue": 3846
+        },
+        {
+          "month": "2026-09",
+          "revenue": 1229
+        }
+      ]
+    },
+    {
+      "id": "C006",
+      "name": "Väike Kaupmees Tartu",
+      "visits": [
+        {
+          "date": "2025-05-01",
+          "count": 1
+        },
+        {
+          "date": "2025-06-01",
+          "count": 3
+        },
+        {
+          "date": "2025-07-01",
+          "count": 1
+        },
+        {
+          "date": "2025-08-01",
+          "count": 3
+        },
+        {
+          "date": "2025-10-01",
+          "count": 4
+        },
+        {
+          "date": "2025-12-01",
+          "count": 2
+        },
+        {
+          "date": "2026-01-23",
+          "count": 1
+        },
+        {
+          "date": "2026-02-04",
+          "count": 1
+        },
+        {
+          "date": "2026-03-19",
+          "count": 1
+        }
+      ],
+      "monthlySales": [
+        {
+          "month": "2024-01",
+          "revenue": 3036
+        },
+        {
+          "month": "2024-02",
+          "revenue": 3084
+        },
+        {
+          "month": "2024-03",
+          "revenue": 6093
+        },
+        {
+          "month": "2024-04",
+          "revenue": 8351
+        },
+        {
+          "month": "2024-05",
+          "revenue": 7190
+        },
+        {
+          "month": "2024-06",
+          "revenue": 6161
+        },
+        {
+          "month": "2024-07",
+          "revenue": 5758
+        },
+        {
+          "month": "2024-08",
+          "revenue": 3502
+        },
+        {
+          "month": "2024-09",
+          "revenue": 4396
+        },
+        {
+          "month": "2024-10",
+          "revenue": 4389
+        },
+        {
+          "month": "2024-11",
+          "revenue": 4600
+        },
+        {
+          "month": "2024-12",
+          "revenue": 3704
+        },
+        {
+          "month": "2025-01",
+          "revenue": 3836
+        },
+        {
+          "month": "2025-02",
+          "revenue": 4769
+        },
+        {
+          "month": "2025-03",
+          "revenue": 4965
+        },
+        {
+          "month": "2025-04",
+          "revenue": 8294
+        },
+        {
+          "month": "2025-05",
+          "revenue": 4432
+        },
+        {
+          "month": "2025-06",
+          "revenue": 5603
+        },
+        {
+          "month": "2025-07",
+          "revenue": 5357
+        },
+        {
+          "month": "2025-08",
+          "revenue": 4125
+        },
+        {
+          "month": "2025-09",
+          "revenue": 4751
+        },
+        {
+          "month": "2025-10",
+          "revenue": 5426
+        },
+        {
+          "month": "2025-11",
+          "revenue": 5318
+        },
+        {
+          "month": "2025-12",
+          "revenue": 3542
+        },
+        {
+          "month": "2026-01",
+          "revenue": 3156
+        },
+        {
+          "month": "2026-02",
+          "revenue": 5559
+        },
+        {
+          "month": "2026-03",
+          "revenue": 6401
+        },
+        {
+          "month": "2026-04",
+          "revenue": 10132
+        },
+        {
+          "month": "2026-05",
+          "revenue": 6557
+        },
+        {
+          "month": "2026-06",
+          "revenue": 6214
+        },
+        {
+          "month": "2026-07",
+          "revenue": 3699
+        },
+        {
+          "month": "2026-08",
+          "revenue": 2848
+        },
+        {
+          "month": "2026-09",
+          "revenue": 1362
+        }
+      ]
+    }
+  ]
+}
