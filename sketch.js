@@ -397,9 +397,26 @@ function drawSalesLine(yForRev, n) {
 
   noStroke();
   fill(COLOR_LINE);
+  const counts = monthlyVisitCounts(current);
   current.monthlySales.forEach((m) => {
     const i = monthIndex(m.month);
-    circle(xForIndex(i, n), yForRev(m.revenue), 6);
+    const px = xForIndex(i, n);
+    const py = yForRev(m.revenue);
+    const visitCount = counts[m.month];
+
+    if (visitCount) {
+      // külastuse kuu - suurem, esiletõstetud punkt
+      const d = 11 + visitCount * 2;
+      fill(COLOR_VISIT);
+      stroke(COLOR_LINE);
+      strokeWeight(2);
+      circle(px, py, d);
+      noStroke();
+      fill(COLOR_LINE);
+      circle(px, py, 5);
+    } else {
+      circle(px, py, 6);
+    }
   });
 }
 
