@@ -12,14 +12,17 @@ const AXIS_LABELS_H = 30;
 const VISITS_TOP = SALES_TOP + SALES_H + GAP;
 const CANVAS_H = VISITS_TOP + VISITS_H + AXIS_LABELS_H;
 
-// ---- Colors ----
-const COLOR_LINE = "#4A4A4A";     // müügijoon - tumehall
-const COLOR_VISIT = "#C9C6C0";    // külastuse ring - helehall
-const COLOR_VISIT_TEXT = "#4A4A4A"; // number ringi sees
-const COLOR_AXIS = "#B9B4AA";
-const COLOR_TEXT = "#2B2B2B";
-const COLOR_SUBTEXT = "#8A857A";
-const COLOR_GRID = "#E7E3DA";
+// ---- Colors (keskmine hall + tumepunane/tumehall aktsent) ----
+const COLOR_BG = "#5C5C61";        // surface-1, kanvase taust (keskmine hall)
+const COLOR_LINE = "#C1443C";        // accent - müügijoon (tumepunane)
+const COLOR_MA = "#BEBEC2";          // libisev keskmine - hele neutraalne hall
+const COLOR_VISIT = "#3A3A3D";       // külastuse ring - tumehall täidis
+const COLOR_VISIT_RING = "#2E2E30"; // külastuse ringi kontuur (tumehall aktsent)
+const COLOR_VISIT_TEXT = "#F7F7F8"; // number ringi sees
+const COLOR_AXIS = "#85858B";        // border-strong
+const COLOR_TEXT = "#F7F7F8";        // text-primary
+const COLOR_SUBTEXT = "#D6D6D9";     // text-secondary
+const COLOR_GRID = "#74747A";        // border-default
 
 let data;
 let customerSelect;
@@ -173,8 +176,8 @@ function computeVisitsPerYear(customer) {
 function trendCell(pct) {
   if (pct === null) return '<span class="trend-flat">vähe andmeid</span>';
   const str = (pct >= 0 ? "+" : "") + pct.toFixed(0) + "%";
-  if (pct >= 8) return `<span class="trend-up">↑ ${str}</span>`;
-  if (pct <= -8) return `<span class="trend-down">↓ ${str}</span>`;
+  if (pct >= 8) return `<span class="trend-badge up">↑</span><span class="trend-up">${str}</span>`;
+  if (pct <= -8) return `<span class="trend-badge down">↓</span><span class="trend-down">${str}</span>`;
   return `<span class="trend-flat">→ ${str}</span>`;
 }
 
@@ -182,8 +185,8 @@ function verdictCell(customer) {
   const effect = computeVisitEffect(customer);
   if (!effect) return '<span class="trend-flat">vähe andmeid</span>';
   const pct = effect.avgPct;
-  if (pct >= 10) return '<span class="trend-up">↑ kasvas külastuste järel</span>';
-  if (pct <= -10) return '<span class="trend-down">↓ langes külastuste järel</span>';
+  if (pct >= 10) return '<span class="trend-up">kasvas külastuste järel</span>';
+  if (pct <= -10) return '<span class="trend-down">langes külastuste järel</span>';
   return '<span class="trend-flat">selget seost pole</span>';
 }
 
@@ -273,7 +276,7 @@ function drawHoverTooltip(n) {
   const x = xForIndex(hoverIndex, n);
 
   // vertikaalne juhtjoon
-  stroke(170);
+  stroke(210, 210, 214);
   strokeWeight(1);
   drawingContext.setLineDash([4, 4]);
   line(x, SALES_TOP, x, VISITS_TOP + VISITS_H);
@@ -301,9 +304,9 @@ function drawHoverTooltip(n) {
   if (by < 4) by = 4;
 
   rectMode(CORNER);
-  stroke(210);
+  stroke(COLOR_AXIS);
   strokeWeight(1);
-  fill(255, 250);
+  fill(100, 100, 106, 245); // surface-2, peaaegu läbipaistmatu
   rect(bx, by, boxW, boxH, 6);
 
   noStroke();
@@ -321,7 +324,7 @@ function drawHoverTooltip(n) {
 }
 
 function draw() {
-  background("#F7F5F1");
+  background(COLOR_BG);
   if (!current) return;
 
   const n = allMonths.length;
@@ -356,9 +359,9 @@ function drawSalesGrid(maxRev, yForRev, n) {
 function drawSalesLine(yForRev, n) {
   const baselineY = SALES_TOP + SALES_H;
 
-  // õrn täidis müügijoone all
+  // õrn täidis müügijoone all (aktsendivärvi toonis)
   noStroke();
-  fill(74, 74, 74, 22);
+  fill(193, 68, 60, 30);
   beginShape();
   current.monthlySales.forEach((m) => {
     const i = monthIndex(m.month);
@@ -373,7 +376,7 @@ function drawSalesLine(yForRev, n) {
   // 3 kuu libisev keskmine - siledam, õrnem joon trendi näitamiseks
   const ma = computeMovingAverage(current.monthlySales, 3);
   noFill();
-  stroke(74, 74, 74, 110);
+  stroke(COLOR_MA);
   strokeWeight(2);
   drawingContext.setLineDash([5, 4]);
   beginShape();
@@ -408,7 +411,7 @@ function drawSalesLine(yForRev, n) {
       // külastuse kuu - suurem, esiletõstetud punkt
       const d = 11 + visitCount * 2;
       fill(COLOR_VISIT);
-      stroke(COLOR_LINE);
+      stroke(COLOR_VISIT_RING);
       strokeWeight(2);
       circle(px, py, d);
       noStroke();
@@ -481,7 +484,7 @@ function drawTitleAndLegend() {
   fill(COLOR_LINE);
   textAlign(LEFT, TOP);
   text("● Müük (kuine käive)", CANVAS_W - 250, 8);
-  fill(150);
+  fill(COLOR_MA);
   text("- - 3 kuu libisev keskmine", CANVAS_W - 250, 22);
   fill(COLOR_SUBTEXT);
   text("● Külastused sel kuul (arv ringis)", CANVAS_W - 250, 36);
