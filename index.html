@@ -6,21 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --background: #100E17;
-      --surface-1: #17141F;
-      --surface-2: #1E1A2B;
-      --surface-3: #262038;
-      --border-default: #2E2840;
-      --border-strong: #40395C;
-      --text-primary: #F5F2FA;
-      --text-secondary: #A8A2C0;
-      --text-muted: #726C8C;
-      --accent: #8B7CFA;
-      --accent-hover: #A396FF;
-      --accent-2: #FF7AB6;
+      --background: #55555A;
+      --surface-1: #5C5C61;
+      --surface-2: #64646A;
+      --surface-3: #6C6C72;
+      --border-default: #74747A;
+      --border-strong: #85858B;
+      --text-primary: #F7F7F8;
+      --text-secondary: #D6D6D9;
+      --text-muted: #B4B4B8;
+      --accent: #C1443C;
+      --accent-hover: #D65850;
+      --accent-2: #2E2E30;
       --success: #3ECF8E;
       --warning: #FFC857;
-      --error: #FF6B6B;
+      --error: #E0554C;
 
       --radius: 12px;
       --space-1: 4px;
@@ -53,12 +53,11 @@
       font-size: 1.7rem;
       font-weight: 700;
       letter-spacing: -0.01em;
-      margin: 0 0 var(--space-1);
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      margin: 0 0 var(--space-2);
+      color: var(--accent);
       display: inline-block;
+      padding-bottom: var(--space-2);
+      border-bottom: 2px solid var(--accent-2);
     }
 
     p.subtitle {
@@ -127,6 +126,23 @@
     .trend-down { color: var(--error); font-weight: 600; }
     .trend-flat { color: var(--text-muted); }
 
+    .trend-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      color: #3A3A3D;
+      margin-right: 5px;
+      vertical-align: -4px;
+      line-height: 1;
+    }
+    .trend-badge.up { background: var(--success); }
+    .trend-badge.down { background: var(--error); }
+
     #controls {
       display: flex;
       align-items: center;
@@ -156,7 +172,7 @@
     select:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(139, 124, 250, 0.28);
+      box-shadow: 0 0 0 3px rgba(193, 68, 60, 0.3);
     }
 
     #canvas-holder {
