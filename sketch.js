@@ -377,7 +377,7 @@ function draw() {
     const t = constrain((millis() - anim.start) / anim.duration, 0, 1);
     const e = easeInOutCubic(t);
 
-    const revenueMap = {};
+    let revenueMap = {};
     const revKeys = new Set([...Object.keys(anim.fromRevenue), ...Object.keys(anim.toRevenue)]);
     revKeys.forEach((k) => {
       const fromV = anim.fromRevenue[k] !== undefined ? anim.fromRevenue[k] : anim.toRevenue[k];
@@ -385,7 +385,7 @@ function draw() {
       revenueMap[k] = lerp(fromV, toV, e);
     });
 
-    const maMap = {};
+    let maMap = {};
     const maKeys = new Set([...Object.keys(anim.fromMA), ...Object.keys(anim.toMA)]);
     maKeys.forEach((k) => {
       const fromV = anim.fromMA[k] !== undefined ? anim.fromMA[k] : anim.toMA[k];
@@ -400,6 +400,14 @@ function draw() {
     displayedMax = maxRev;
 
     if (t >= 1) {
+      // animatsioon lõpetatud - puhastame üleminekul tekkinud "lisakuud",
+      // mida uuel kliendil tegelikult pole
+      revenueMap = anim.toRevenue;
+      maMap = anim.toMA;
+      maxRev = anim.toMax;
+      displayedRevenue = revenueMap;
+      displayedMA = maMap;
+      displayedMax = maxRev;
       anim = null;
       noLoop();
     }
