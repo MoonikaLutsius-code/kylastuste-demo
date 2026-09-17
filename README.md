@@ -23,6 +23,3 @@ python3 -m http.server
 ja ava seejärel `http://localhost:8000`.
 Taust
 See on kärbitud, koolituse formaadile (4 kontaktpäeva, JSON + HTML/p5.js + GitHub Pages) sobiv harjutus, mis on üles ehitatud suurema, tulevikus Python/pandas + Streamlit peale ehitatava "Customer Visit Optimizer" projekti idee pealt.
-## Taust
-
-See on kärbitud, koolituse formaadile (4 kontaktpäeva, JSON + HTML/p5.js + GitHub Pages) sobiv harjutus, mis on üles ehitatud suurema, tulevikus Python/pandas + Streamlit peale ehitatava "Customer Visit Optimizer" projekti idee pealt.
