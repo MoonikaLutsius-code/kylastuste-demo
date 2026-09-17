@@ -30,6 +30,17 @@ let allMonths = [];
 let current;
 let hoverIndex = -1;
 
+// Animeeritud üleminek klientide vahetamisel
+let anim = null;
+let displayedRevenue = null;
+let displayedMA = null;
+let displayedMax = null;
+const TRANSITION_MS = 380;
+
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
 const MONTH_NAMES_ET = [
   "Jaanuar", "Veebruar", "Märts", "Aprill", "Mai", "Juuni",
   "Juuli", "August", "September", "Oktoober", "November", "Detsember",
@@ -61,10 +72,42 @@ function setup() {
 
 function onCustomerChange() {
   const name = customerSelect.value();
-  current = data.customers.find((c) => c.name === name);
+  const newCustomer = data.customers.find((c) => c.name === name);
+  current = newCustomer;
   updateNote();
   updateConclusion();
-  redraw();
+  startTransition(newCustomer);
+}
+
+// Valmistab ette sujuva ülemineku eelmiselt kliendilt uuele
+function startTransition(newCustomer) {
+  const toRevenue = {};
+  newCustomer.monthlySales.forEach((m) => (toRevenue[m.month] = m.revenue));
+  const toMA = {};
+  computeMovingAverage(newCustomer.monthlySales, 3).forEach((m) => (toMA[m.month] = m.avg));
+  const toMax = Math.max(...newCustomer.monthlySales.map((m) => m.revenue)) * 1.15;
+
+  if (!displayedRevenue) {
+    // esimene laadimine - ilma animatsioonita
+    displayedRevenue = toRevenue;
+    displayedMA = toMA;
+    displayedMax = toMax;
+    anim = null;
+    redraw();
+    return;
+  }
+
+  anim = {
+    fromRevenue: displayedRevenue,
+    toRevenue,
+    fromMA: displayedMA,
+    toMA,
+    fromMax: displayedMax,
+    toMax,
+    start: millis(),
+    duration: TRANSITION_MS,
+  };
+  loop();
 }
 
 // Väga lihtne, KIRJELDAV (mitte põhjuslik) enne/pärast võrdlus:
@@ -328,8 +371,42 @@ function draw() {
   if (!current) return;
 
   const n = allMonths.length;
-  const revenues = current.monthlySales.map((m) => m.revenue);
-  const maxRev = Math.max(...revenues) * 1.15;
+  let maxRev;
+
+  if (anim) {
+    const t = constrain((millis() - anim.start) / anim.duration, 0, 1);
+    const e = easeInOutCubic(t);
+
+    const revenueMap = {};
+    const revKeys = new Set([...Object.keys(anim.fromRevenue), ...Object.keys(anim.toRevenue)]);
+    revKeys.forEach((k) => {
+      const fromV = anim.fromRevenue[k] !== undefined ? anim.fromRevenue[k] : anim.toRevenue[k];
+      const toV = anim.toRevenue[k] !== undefined ? anim.toRevenue[k] : anim.fromRevenue[k];
+      revenueMap[k] = lerp(fromV, toV, e);
+    });
+
+    const maMap = {};
+    const maKeys = new Set([...Object.keys(anim.fromMA), ...Object.keys(anim.toMA)]);
+    maKeys.forEach((k) => {
+      const fromV = anim.fromMA[k] !== undefined ? anim.fromMA[k] : anim.toMA[k];
+      const toV = anim.toMA[k] !== undefined ? anim.toMA[k] : anim.fromMA[k];
+      maMap[k] = lerp(fromV, toV, e);
+    });
+
+    maxRev = lerp(anim.fromMax, anim.toMax, e);
+
+    displayedRevenue = revenueMap;
+    displayedMA = maMap;
+    displayedMax = maxRev;
+
+    if (t >= 1) {
+      anim = null;
+      noLoop();
+    }
+  } else {
+    maxRev = displayedMax;
+  }
+
   const yForRev = (v) => SALES_TOP + SALES_H - (SALES_H * v) / maxRev;
 
   drawSalesGrid(maxRev, yForRev, n);
@@ -358,31 +435,31 @@ function drawSalesGrid(maxRev, yForRev, n) {
 
 function drawSalesLine(yForRev, n) {
   const baselineY = SALES_TOP + SALES_H;
+  const months = allMonths.filter((m) => displayedRevenue[m] !== undefined);
+  if (months.length === 0) return;
 
   // õrn täidis müügijoone all (aktsendivärvi toonis)
   noStroke();
   fill(193, 68, 60, 30);
   beginShape();
-  current.monthlySales.forEach((m) => {
-    const i = monthIndex(m.month);
-    vertex(xForIndex(i, n), yForRev(m.revenue));
+  months.forEach((m) => {
+    const i = monthIndex(m);
+    vertex(xForIndex(i, n), yForRev(displayedRevenue[m]));
   });
-  const lastM = current.monthlySales[current.monthlySales.length - 1];
-  const firstM = current.monthlySales[0];
-  vertex(xForIndex(monthIndex(lastM.month), n), baselineY);
-  vertex(xForIndex(monthIndex(firstM.month), n), baselineY);
+  vertex(xForIndex(monthIndex(months[months.length - 1]), n), baselineY);
+  vertex(xForIndex(monthIndex(months[0]), n), baselineY);
   endShape(CLOSE);
 
   // 3 kuu libisev keskmine - siledam, õrnem joon trendi näitamiseks
-  const ma = computeMovingAverage(current.monthlySales, 3);
+  const maMonths = allMonths.filter((m) => displayedMA[m] !== undefined);
   noFill();
   stroke(COLOR_MA);
   strokeWeight(2);
   drawingContext.setLineDash([5, 4]);
   beginShape();
-  ma.forEach((m) => {
-    const i = monthIndex(m.month);
-    vertex(xForIndex(i, n), yForRev(m.avg));
+  maMonths.forEach((m) => {
+    const i = monthIndex(m);
+    vertex(xForIndex(i, n), yForRev(displayedMA[m]));
   });
   endShape();
   drawingContext.setLineDash([]);
@@ -392,20 +469,20 @@ function drawSalesLine(yForRev, n) {
   stroke(COLOR_LINE);
   strokeWeight(2.5);
   beginShape();
-  current.monthlySales.forEach((m) => {
-    const i = monthIndex(m.month);
-    vertex(xForIndex(i, n), yForRev(m.revenue));
+  months.forEach((m) => {
+    const i = monthIndex(m);
+    vertex(xForIndex(i, n), yForRev(displayedRevenue[m]));
   });
   endShape();
 
   noStroke();
   fill(COLOR_LINE);
   const counts = monthlyVisitCounts(current);
-  current.monthlySales.forEach((m) => {
-    const i = monthIndex(m.month);
+  months.forEach((m) => {
+    const i = monthIndex(m);
     const px = xForIndex(i, n);
-    const py = yForRev(m.revenue);
-    const visitCount = counts[m.month];
+    const py = yForRev(displayedRevenue[m]);
+    const visitCount = counts[m];
 
     if (visitCount) {
       // külastuse kuu - suurem, esiletõstetud punkt
