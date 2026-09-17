@@ -5,110 +5,196 @@
   <title>Külastuste ja müügi demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --background: #100E17;
+      --surface-1: #17141F;
+      --surface-2: #1E1A2B;
+      --surface-3: #262038;
+      --border-default: #2E2840;
+      --border-strong: #40395C;
+      --text-primary: #F5F2FA;
+      --text-secondary: #A8A2C0;
+      --text-muted: #726C8C;
+      --accent: #8B7CFA;
+      --accent-hover: #A396FF;
+      --accent-2: #FF7AB6;
+      --success: #3ECF8E;
+      --warning: #FFC857;
+      --error: #FF6B6B;
+
+      --radius: 12px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+      --transition: 180ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #F7F5F1;
-      color: #2B2B2B;
+      font-family: var(--font-sans);
+      background: var(--background);
+      color: var(--text-primary);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 32px 16px 60px;
+      padding: var(--space-8) var(--space-4) 60px;
     }
+
     h1 {
-      font-size: 1.5rem;
-      margin: 0 0 4px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 var(--space-1);
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
     }
+
     p.subtitle {
-      margin: 0 0 24px;
-      color: #6B6B6B;
+      margin: 0 0 var(--space-6);
+      color: var(--text-secondary);
       max-width: 640px;
       text-align: center;
       font-size: 0.95rem;
+      line-height: 1.5;
     }
-    #controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    #controls label {
-      font-size: 0.9rem;
-      color: #444;
-    }
-    select {
-      font-size: 0.95rem;
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid #CCC;
-      background: white;
-    }
-    #note {
-      max-width: 640px;
-      font-size: 0.85rem;
-      color: #8A5A00;
-      background: #FFF6E5;
-      border: 1px solid #F0DDB0;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin-top: 14px;
-      display: none;
-      text-align: center;
-    }
-    #note.visible {
-      display: block;
-    }
-    #conclusion {
-      max-width: 640px;
-      font-size: 0.95rem;
-      color: #2B2B2B;
-      background: #EFEDE7;
-      border-left: 3px solid #8A857A;
-      border-radius: 4px;
-      padding: 10px 14px;
-      margin-top: 16px;
-      text-align: left;
-    }
+
     #overview-wrap {
       width: 100%;
       max-width: 820px;
-      margin-bottom: 28px;
+      margin-bottom: var(--space-8);
     }
+
     #overview-wrap h2 {
-      font-size: 1.05rem;
-      margin: 0 0 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 var(--space-1);
       text-align: center;
+      color: var(--text-primary);
     }
+
     #overview-wrap p.hint {
-      margin: 0 0 12px;
-      color: #8A857A;
-      font-size: 0.82rem;
+      margin: 0 0 var(--space-3);
+      color: var(--text-muted);
+      font-size: 0.8rem;
       text-align: center;
     }
+
     #overview {
       border-collapse: collapse;
       width: 100%;
       font-size: 0.85rem;
-      background: white;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      background: var(--surface-1);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
+
     #overview th, #overview td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #E7E3DA;
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--border-default);
       text-align: left;
+      color: var(--text-primary);
     }
+
+    #overview tr:last-child td { border-bottom: none; }
+
     #overview th {
-      color: #6B6B6B;
+      color: var(--text-secondary);
       font-weight: 600;
-      font-size: 0.78rem;
-      text-transform: none;
+      font-size: 0.75rem;
+      background: var(--surface-2);
     }
+
     #overview td.num, #overview th.num {
       text-align: right;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
     }
-    .trend-up { color: #2E7D46; font-weight: 600; }
-    .trend-down { color: #B3441E; font-weight: 600; }
-    .trend-flat { color: #8A857A; }
+
+    .trend-up { color: var(--success); font-weight: 600; }
+    .trend-down { color: var(--error); font-weight: 600; }
+    .trend-flat { color: var(--text-muted); }
+
+    #controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+
+    #controls label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    select {
+      font-size: 0.9rem;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-default);
+      background: var(--surface-1);
+      color: var(--text-primary);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    select:hover {
+      border-color: var(--border-strong);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139, 124, 250, 0.28);
+    }
+
+    #canvas-holder {
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface-1);
+    }
+
+    #note {
+      max-width: 640px;
+      font-size: 0.85rem;
+      color: var(--warning);
+      background: var(--surface-2);
+      border: 1px solid var(--border-default);
+      border-left: 3px solid var(--warning);
+      border-radius: var(--radius);
+      padding: var(--space-3) var(--space-4);
+      margin-top: var(--space-4);
+      display: none;
+      text-align: left;
+    }
+
+    #note.visible { display: block; }
+
+    #conclusion {
+      max-width: 640px;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      background: var(--surface-2);
+      border: 1px solid var(--border-default);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: var(--space-3) var(--space-4);
+      margin-top: var(--space-4);
+      text-align: left;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
